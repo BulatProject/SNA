@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-      - 'BA**'
+      - 'SNA**'
   pull_request:
     branches:
       - main
-      - 'BA**'
+      - 'SNA**'
 
 permissions:
   contents: read
