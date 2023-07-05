@@ -61,7 +61,7 @@ class RequestLogMiddleware(BaseHTTPMiddleware):
                 log_data["request_body"] = req_body
             except json.JSONDecodeError:
                 log.warning("RequestLogMiddleware: WARNING: cant decode body")
-                log.warning(f"RequestLogMiddleware: WARNING: body: {body}")
+                log.warning(f"RequestLogMiddleware: WARNING: body: {body!r}")
                 log_data["request_body"] = {body}
 
         response = await call_next(request)

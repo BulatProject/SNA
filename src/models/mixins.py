@@ -8,7 +8,7 @@ class TimingMixin:
         DateTime(timezone=True),
         server_default=utcnow(),
         nullable=False,
-        comment="Время создания записи",
+        comment="When row was created",
     )
 
     updated_at = Column(
@@ -16,5 +16,5 @@ class TimingMixin:
         server_default=utcnow(),
         onupdate=utcnow(),
         nullable=False,
-        comment="Время последнего обновления записи",
+        comment="Last time row was updated",
     )
