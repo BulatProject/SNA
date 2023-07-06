@@ -44,4 +44,4 @@ jobs:
         black . --line-length=79 --include='\.pyi?$' --check
     - name: Test with pytest
       run: |
-        pytest
+        pytest tests --asyncio-mode=auto
