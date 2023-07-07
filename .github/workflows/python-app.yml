@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  linting:
 
     runs-on: ubuntu-latest
 
@@ -27,7 +27,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8-print black anybadge
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with Pylint
       run: |
@@ -43,15 +42,12 @@ jobs:
       run: |
         black . --line-length=79 --include='\.pyi?$' --check
 
-  runner-job:
-    # You must use a Linux environment when using service containers or container jobs
+  testing:
+
     runs-on: ubuntu-latest
 
-    # Service containers to run with `runner-job`
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
         image: postgres
         # Provide the password for postgres
         env:
@@ -67,23 +63,19 @@ jobs:
           - 5432:5432
 
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
-      - name: Check out repository code
-        uses: actions/checkout@v3
 
       # Performs a clean installation of all dependencies in the `package.json` file
       # For more information, see https://docs.npmjs.com/cli/ci.html
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8-print black anybadge
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Connect to PostgreSQL and run Pytest
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data
         run: |
-          pytest tests --asyncio-mode=auto
+          pytest tests --asyncio-mode=auto -vv
         # Environment variables used by the `client.js` script to create
         # a new PostgreSQL table.
         env:
