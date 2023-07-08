@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     app_version: str = "latest"
     project_name: str
     secret_jwt: str
+    secret_key: str
     logging_level: str
 
     # application run mod: DEV/BACKGROUND
